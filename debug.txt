@@ -1,0 +1,53 @@
+
+void debug(VendingMachine vm) { 
+    string input;
+    int in;
+    cout << "1: to enter a item" << endl;
+    cout << "2: to remove a item" << endl;
+    cout << "3: to update a item quanttiy" << endl;
+    cout << "4: to check til" << endl;
+    cout << "5: to update til" << endl;
+    cin >> input;
+    in = stoi(input);
+    
+    switch (in) { 
+        case "1":
+            string name;
+            double price;
+            int quant, shelf;
+
+            cout << "Enter item name" << endl;
+            cin >> name;
+            cout << "Enter item price" << endl;
+            cin >> input;
+            price = stod(input);
+            cout << "Enter quantity" << endl;
+            cin >> input;
+            quant = stoi(input);
+            cout << "Enter shelf" << endl;
+            cin >> input;
+            shelf = stoi(input);
+            Item newItem(name, price);
+            vm.updateShelf(shelf, newItem, quant);
+            break;
+        case "2":
+            int shelf;
+            cout << "Enter shelf number" << endl;
+            cin >> input;
+            shelf = stoi(input);
+            vm.removeShelf(shelf);
+            break;
+        case "3":
+            int shelf, quant;
+            cout << "Enter shelf number" << endl;
+            cin >> input;
+            shelf = stoi(input);
+            cout << "Enter quantity" << endl;
+            cin >> input;
+            quant = stoi(shelf);
+            break;
+
+            
+    }
+
+}
