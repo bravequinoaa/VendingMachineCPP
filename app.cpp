@@ -9,7 +9,17 @@ using namespace std;
 
 void printPocket(VendingMachine vm);
 void debug(VendingMachine vm);
-constexpr unsigned int str2int(const char* str, int h = 0);
+
+enum Option {
+    ne,
+    del,
+    up,
+    ct,
+    ut,
+    Option_Invalid
+};
+
+Option resolveOption(string input);
 
 int main() {
 
@@ -53,6 +63,7 @@ int main() {
 
         if (input == "-1") { 
             running = false;
+            cout << "Goodbye" << endl;
             break;
         }
         if (input == "-69") { 
@@ -105,7 +116,7 @@ void printPocket(VendingMachine vm) {
 
 void debug(VendingMachine vm) { 
     string input, option;
-    cout << "new to enter a item" << endl;
+    cout << "ne to enter a item" << endl;
     cout << "del: to remove a item" << endl;
     cout << "up: to update a item quanttiy" << endl;
     cout << "ct: to check til" << endl;
@@ -117,8 +128,8 @@ void debug(VendingMachine vm) {
     double price;
     int quant, shelf;
     
-    switch (str2int(option)) { 
-        case str2int("new"): {
+    switch (resolveOption(option)) { 
+        case ne: {
             cout << "Enter item name" << endl;
             cin >> name;
             cout << "Enter item price" << endl;
@@ -133,27 +144,34 @@ void debug(VendingMachine vm) {
             Item newItem(name, price);
             vm.updateShelf(shelf, newItem, quant);
             break;
-        }
-        case str2int("del"): {
+        };
+        case del: {
             cout << "Enter shelf number" << endl; cin >> input;
             shelf = stoi(input);
             vm.removeShelf(shelf);
             break;
-        }
-        case str2int("up"): {
+        };
+        case up: {
             cout << "Enter shelf number" << endl;
             cin >> input;
             shelf = stoi(input);
             cout << "Enter quantity" << endl;
             cin >> input;
-            quant = stoi(shelf);
+            quant = stoi(input);
             break;
-        }
+        };
         default:
             cout << "INVALID OPTION" << endl;
-    }
-}
 
-constexpr unsigned int str2int(string str, int h = 0) {
-    return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
-}
+            
+    }
+};
+
+Option resolveOption(string input) {
+    if (input == "ne") return ne;
+    if (input == "del") return del;
+    if (input == "up") return up;
+    if (input == "ct") return ct;
+    if (input == "ut") return ut;
+    return Option_Invalid;
+};
