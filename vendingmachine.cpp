@@ -3,7 +3,7 @@
 
 
 class VendingMachine {
-    double til;
+    double till;
 	Shelf shelves[5*5];
     
 public:
@@ -12,11 +12,11 @@ public:
 
 	Item getShelfItem(int shelf) { return shelves[shelf].getItem();  }
 	int getShelfQuantity(int shelf) { return shelves[shelf].getQuantity(); }
-    double getTil() { return til; }
+    double getTill() { return till; }
 
-    void setTil(double newTil) { til = newTil; }
-    void addTil(double amount) { til+=amount; }
-    void minTil(double amount) { til-=amount; }
+    void setTill(double newTill) { till = newTill; }
+    void addTill(double amount) { till += amount; }
+    void minTill(double amount) { till -= amount; }
 
 	void updateShelf(int shelf, Item item, int quantity) {
 		Shelf newShelf;

@@ -9,6 +9,7 @@ using namespace std;
 
 void printPocket(VendingMachine vm);
 void debug(VendingMachine vm);
+void printBreak();
 
 enum Option {
     ne,
@@ -37,15 +38,9 @@ int main() {
 	vendingmachine.updateShelf(1, candyBar, 5);
 	vendingmachine.updateShelf(3, candyBar, 10);
 	Item currItem = vendingmachine.getShelfItem(0*0);
-	cout << "Shelf 0x0 contains: " << currItem.getName() << endl << endl;
 
-    vendingmachine.setTil(30.00);
-    cout << fixed << setprecision(2);
-    cout << "$" << vendingmachine.getTil() << endl;
-    vendingmachine.addTil(5.00);
-    vendingmachine.minTil(1.50);
-    cout << "$" << vendingmachine.getTil() << endl;
-
+    // set vendingmachine till
+    vendingmachine.setTill(30.00);
 
     // Loop start
     bool running = true;
@@ -70,16 +65,17 @@ int main() {
             debug(vendingmachine);
             continue;
         }
+        if (stoi(input) < 0 || stoi(input) > vendingmachine.getSize()) { 
+            cout << "INVALID LOCATION" << endl;
+            printBreak();
+            continue;
+        }
 
         choice = stoi(input);
         Item selectedItem = vendingmachine.getShelfItem(choice);
-        cout << selectedItem.getName().length() << endl;
+        //cout << selectedItem.getName().length() << endl;
 
-        if (selectedItem.getName().length() <= 0) {
-           cout << "INVALID LOCATION" << endl; 
-           continue; 
-        }
-        cout << "=====================" << endl;
+        printBreak();
         choiceName = selectedItem.getName();
         choicePrice = selectedItem.getPrice();
         cout << choiceName << endl;
@@ -100,10 +96,15 @@ int main() {
         wallet += change; 
         pocket[pocketDepth] = selectedItem;
         pocketDepth++;
-        vendingmachine.addTil(choicePrice);
+        vendingmachine.addTill(choicePrice);
+        printBreak();
     }
 
 	return 0;
+};
+
+void printBreak() {
+    cout << "=====================" << endl;
 };
 
 
@@ -119,8 +120,8 @@ void debug(VendingMachine vm) {
     cout << "ne to enter a item" << endl;
     cout << "del: to remove a item" << endl;
     cout << "up: to update a item quanttiy" << endl;
-    cout << "ct: to check til" << endl;
-    cout << "ut: to update til" << endl;
+    cout << "ct: to check till" << endl;
+    cout << "ut: to update till" << endl;
     cin >> input;
     option = input;
 
@@ -141,6 +142,7 @@ void debug(VendingMachine vm) {
             cout << "Enter shelf" << endl;
             cin >> input;
             shelf = stoi(input);
+            cout << shelf << endl;
             Item newItem(name, price);
             vm.updateShelf(shelf, newItem, quant);
             break;
