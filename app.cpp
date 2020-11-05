@@ -73,9 +73,9 @@ int main() {
 
         choice = stoi(input);
         Item selectedItem = vendingmachine.getShelfItem(choice);
-        //cout << selectedItem.getName().length() << endl;
 
         printBreak();
+
         choiceName = selectedItem.getName();
         choicePrice = selectedItem.getPrice();
         cout << choiceName << endl;
@@ -91,6 +91,7 @@ int main() {
             cout << "INSUFFICIENT FUNDS" << endl;
             continue;
         } 
+
         cout << "Change: $" << change << endl;
         wallet -= payedAmt;
         wallet += change; 
@@ -164,8 +165,7 @@ void debug(VendingMachine vm) {
         };
         default:
             cout << "INVALID OPTION" << endl;
-
-            
+            break;
     }
 };
 
