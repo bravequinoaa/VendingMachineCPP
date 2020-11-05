@@ -143,9 +143,11 @@ void debug(VendingMachine vm) {
             cout << "Enter shelf" << endl;
             cin >> input;
             shelf = stoi(input);
-            cout << shelf << endl;
-            Item newItem(name, price);
-            vm.updateShelf(shelf, newItem, quant);
+
+            vm.getShelfItem(shelf).setName(name);
+            vm.getShelfItem(shelf).setPrice(price);
+            vm.getShelf(shelf).setQuantity(quant);
+
             break;
         };
         case del: {

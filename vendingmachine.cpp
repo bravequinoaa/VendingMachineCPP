@@ -11,6 +11,7 @@ public:
 	~VendingMachine() { }
 
 	Item getShelfItem(int shelf) { return shelves[shelf].getItem();  }
+    Shelf getShelf(int shelf) { return shelves[shelf]; }
 	int getShelfQuantity(int shelf) { return shelves[shelf].getQuantity(); }
     double getTill() { return till; }
 
