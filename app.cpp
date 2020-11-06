@@ -17,6 +17,7 @@ enum Option {
     up,
     ct,
     ut,
+    qt,
     Option_Invalid
 };
 
@@ -117,58 +118,78 @@ void printPocket(VendingMachine vm) {
 };
 
 void debug(VendingMachine vm) { 
-    string input, option;
-    cout << "ne to enter a item" << endl;
-    cout << "del: to remove a item" << endl;
-    cout << "up: to update a item quanttiy" << endl;
-    cout << "ct: to check till" << endl;
-    cout << "ut: to update till" << endl;
-    cin >> input;
-    option = input;
+    bool db;
+    while (db) {
+        string input, option;
+        cout << "ne to enter a item" << endl;
+        cout << "del: to remove a item" << endl;
+        cout << "up: to update a item quanttiy" << endl;
+        cout << "ct: to check till" << endl;
+        cout << "ut: to update till" << endl;
+        cout << "qt: to quit debug" << endl; 
+        cin >> input;
+        option = input;
 
-    string name;
-    double price;
-    int quant, shelf;
-    
-    switch (resolveOption(option)) { 
-        case ne: {
-            cout << "Enter item name" << endl;
-            cin >> name;
-            cout << "Enter item price" << endl;
-            cin >> input;
-            price = stod(input);
-            cout << "Enter quantity" << endl;
-            cin >> input;
-            quant = stoi(input);
-            cout << "Enter shelf" << endl;
-            cin >> input;
-            shelf = stoi(input);
+        string name;
+        double price;
+        int quant, shelf;
+        
+        switch (resolveOption(option)) { 
+            case ne: {
+                cout << "Enter item name" << endl;
+                cin >> name;
+                cout << "Enter item price" << endl;
+                cin >> input;
+                price = stod(input);
+                cout << "Enter quantity" << endl;
+                cin >> input;
+                quant = stoi(input);
+                cout << "Enter shelf" << endl;
+                cin >> input;
+                shelf = stoi(input);
 
-            vm.getShelfItem(shelf).setName(name);
-            vm.getShelfItem(shelf).setPrice(price);
-            vm.getShelf(shelf).setQuantity(quant);
+                vm.getShelfItem(shelf).setName(name);
+                vm.getShelfItem(shelf).setPrice(price);
+                vm.getShelf(shelf).setQuantity(quant);
 
-            break;
-        };
-        case del: {
-            cout << "Enter shelf number" << endl; cin >> input;
-            shelf = stoi(input);
-            vm.removeShelf(shelf);
-            break;
-        };
-        case up: {
-            cout << "Enter shelf number" << endl;
-            cin >> input;
-            shelf = stoi(input);
-            cout << "Enter quantity" << endl;
-            cin >> input;
-            quant = stoi(input);
-            break;
-        };
-        default:
-            cout << "INVALID OPTION" << endl;
-            break;
-    }
+                break;
+            };
+            case del: {
+                cout << "Enter shelf number" << endl; cin >> input;
+                shelf = stoi(input);
+                vm.removeShelf(shelf);
+                break;
+            };
+            case up: {
+                cout << "Enter shelf number" << endl;
+                cin >> input;
+                shelf = stoi(input);
+                cout << "Enter quantity" << endl;
+                cin >> input;
+                quant = stoi(input);
+                break;
+            };
+            case ct: {
+                cout << "$" << vm.getTill() << endl;
+                break;
+            };
+            case ut: {
+                double newBal;
+                cout << "$" << vm.getTill() << endl;
+                cout << "Enter new amount of till balance" << endl;
+                cin >> newBal;
+                vm.setTill(newBal);
+                break;
+            };
+            case qt: {
+                db = false;
+                break;
+            };
+            default:
+                cout << "INVALID OPTION" << endl;
+                break;
+        }
+    };
 };
 
 Option resolveOption(string input) {
@@ -177,5 +198,6 @@ Option resolveOption(string input) {
     if (input == "up") return up;
     if (input == "ct") return ct;
     if (input == "ut") return ut;
+    if (input == "qt") return qt;
     return Option_Invalid;
 };
